@@ -1,4 +1,4 @@
-# php
+# php SnowFlake
 PHP 实现的 SnowFlake 
 
 将其中的位移运算改成了数学运算
