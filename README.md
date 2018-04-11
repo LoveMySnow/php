@@ -1,4 +1,4 @@
-# php SnowFlake
+# PHP and LUA  SnowFlake
 PHP 实现的 SnowFlake 
 
 增加了lua实现的 SnowFlake
