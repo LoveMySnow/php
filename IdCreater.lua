@@ -4,6 +4,7 @@ IdCreater.BIRTH_DAY = 1523342555743
 IdCreater.WORKER_ID_BIT = 10
 IdCreater.ZIPPER_BIT = 12
 IdCreater.DEFAULT_ID = 99999999999999
+IdCreater.ENV_PATH  = '/data1/sinawap/code/run/application/config/.env'
 
 function IdCreater:new()
     creater = {}
@@ -59,10 +60,22 @@ function IdCreater:getNextTimestamp()
 end
 
 function IdCreater:getWorkId()
-	return 1
+    local file = io.open(IdCreater.ENV_PATH,"r")
+    local workId = 1
+    for line in file:lines() do
+        _,_,workId=string.find(line,"SERVER_ID=(%d+)");  
+    end
+    if workId == nil or (tonumber(workId) > math.pow(2, IdCreater.WORKER_ID_BIT) - 1)
+    then
+        return 1
+    end
+
+    file.close()
+	return tonumber(workId)
 end
 
 function IdCreater:getTimestamp()
+    -- return os.time() * 1000
 	return ngx.now() * 1000
 end
 
@@ -77,6 +90,8 @@ function myerrorhandler( err )
 end
 
 status, id = xpcall( getId, myerrorhandler)
+
+print(id)
 
 if status == false 
 then

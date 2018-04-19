@@ -6,7 +6,6 @@
  * Time: 下午2:32
  */
 
-namespace common;
 for ($i = 0; $i < 10000; $i++) {
     $id = IdCreater::intiCreater()->getId();
     echo $id . "\n";
